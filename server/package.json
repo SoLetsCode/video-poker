@@ -1,0 +1,30 @@
+{
+  "name": "hackathon",
+  "version": "1.0.0",
+  "description": "group projects with UX UI design, web developers and data scientists",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "client": "npm start --prefix ../client",
+    "serve": "nodemon server.js",
+    "dev": "concurrently \"npm run serve\" \"npm run client\""
+  },
+  "keywords": [
+    "hackathon",
+    "group",
+    "web",
+    "development",
+    "data",
+    "science",
+    "UI",
+    "UX"
+  ],
+  "author": "Derek Brian Alana Kaity Austin Franka Helaleh Karla Paul",
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^5.1.0",
+    "express": "^4.17.1",
+    "nodemon": "^2.0.2"
+  }
+}
