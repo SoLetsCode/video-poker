@@ -1,19 +1,52 @@
-class Deck {
+import Card from "./Card";
+
+export default class Deck {
+  //this class will only deal a card and keep track of dealt cards
+
   constructor(dealtCards = []) {
     this.dealtCards = dealtCards;
     //above will be used when we want to simulate many hands with the same cards
     this.deck = [];
-    this.hand = [];
   }
 
   createCards = () => {
     let tempDeck = [];
+    let value = [
+      "A",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "J",
+      "Q",
+      "K"
+    ];
     for (let suit in { d: "diamond", c: "club", h: "heart", s: "spade" }) {
-      for (let i = 1; i <= 13; i++) {
-        tempDeck.push(i + suit);
+      for (let i = 0; i < 13; i++) {
+        tempDeck.push(new Card(value[i], suit));
       }
     }
     this.deck = tempDeck;
+  };
+
+  draw = num => {
+    //draw NUM of cards. return drawn cards.
+    let index = 0;
+    let cards = [];
+    for (let i = 0; i < num; i++) {
+      index = Math.floor(Math.random() * this.deck.length);
+      while (this.dealtCards.some(value => value === index)) {
+        index = Math.floor(Math.random() * this.deck.length);
+      }
+      cards.push(index);
+    }
+    this.dealtCards.push(...cards);
+    return cards;
   };
 
   getDeck = () => {
@@ -24,23 +57,15 @@ class Deck {
     return this.dealtCards;
   };
 
-  deal = num => {
-    let index = 0;
-    for (let i = 0; i < num; i++) {
-      index = Math.floor(Math.random() * this.deck.length);
-      while (this.dealtCards.some(value => value === index)) {
-        console.log(`${index} was dealt, redrawing`);
-        index = Math.floor(Math.random() * this.deck.length);
-      }
-      this.dealtCards.push(index);
-      console.log(this.deck[index]);
-    }
+  getDealtCardsByIndex = () => {
+    return this.dealtCards.map(card => this.getCardByIndex(card));
+  };
+
+  getCardByIndex = index => {
+    return this.deck[index];
+  };
+
+  getHandByIndex = array => {
+    return array.map(value => this.getCardByIndex(value));
   };
 }
-
-let deck = new Deck([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]);
-deck.createCards();
-console.log(deck.getDeck());
-console.log(deck.getDealtCards());
-deck.deal(5);
-console.log(deck.getDealtCards());

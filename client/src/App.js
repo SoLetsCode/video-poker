@@ -11,20 +11,34 @@ import {
 //styles
 import "./styles/app.css";
 
+//helpers
+import Deck from "./helper/Deck";
+
 //import components here
-import Sample from "./components/Sample";
+import Field from "./components/Field";
 
 class App extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = {
+      hand: [],
+      deck: []
+    };
   }
+
+  componentDidMount() {
+    let tempDeck = new Deck();
+    tempDeck.createCards();
+    let tempHand = tempDeck.draw(5);
+    tempHand = tempDeck.getHandByIndex(tempHand);
+    this.setState({ deck: tempDeck, hand: tempHand });
+  }
+
   render() {
     return (
       <div className="App">
-        testing
-        <Sample />
+        <Field hand={this.state.hand} />
       </div>
     );
   }
