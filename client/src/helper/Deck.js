@@ -39,14 +39,18 @@ export default class Deck {
     let index = 0;
     let cards = [];
     for (let i = 0; i < num; i++) {
-      index = Math.floor(Math.random() * this.deck.length);
+      index = this.randomize(this.deck.length);
       while (this.dealtCards.some(value => value === index)) {
-        index = Math.floor(Math.random() * this.deck.length);
+        index = this.randomize(this.deck.length);
       }
       cards.push(index);
+      this.dealtCards.push(index);
     }
-    this.dealtCards.push(...cards);
     return cards;
+  };
+
+  randomize = range => {
+    return Math.floor(Math.random() * range);
   };
 
   getDeck = () => {

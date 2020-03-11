@@ -1,0 +1,28 @@
+.field {
+  display: flex;
+  justify-content: center;
+
+  &__card-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 15vw;
+    height: 25vw;
+    border: 1px solid $border-grey;
+    border-radius: 5px;
+    position: relative;
+    margin-left: 10px;
+  }
+
+  &__card-value {
+    font-family: serif;
+    font-size: 16px;
+    position: absolute;
+    top: 5px;
+    left: 5px;
+  }
+
+  &__card-suit {
+    font-size: 40px;
+  }
+}

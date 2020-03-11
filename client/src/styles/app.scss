@@ -12,3 +12,6 @@ body {
 *::after {
   box-sizing: inherit;
 }
+@import "./partials/colors";
+
+@import "./partials/field";
