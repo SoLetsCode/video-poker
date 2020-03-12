@@ -131,6 +131,15 @@ const twoPair = (hand = []) => {
   return pairs === 2;
 };
 
+const jackHighPair = (hand = []) => {
+  for (let value of ["J", "Q", "K", "A"]) {
+    if (hand.filter(card => card.value === value).length === 2) {
+      return true;
+    }
+  }
+  return false;
+};
+
 const checkWin = (hand = []) => {
   //sorted hand is to assist checking for straights later
   let sortedHand = sortHand(hand);
@@ -148,6 +157,8 @@ const checkWin = (hand = []) => {
     return "3 of a kind";
   } else if (twoPair(sortedHand)) {
     return "2 pair";
+  } else if (jackHighPair(sortedHand)) {
+    return "Pair jacks or better";
   } else {
     return "LOSER";
   }

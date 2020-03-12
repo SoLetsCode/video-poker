@@ -25,10 +25,10 @@ const cardList = () => {
     temp.push(i);
   }
 
-  //test for full house
-  temp.splice(39, 2);
-  temp.splice(26, 3);
-  temp.splice(13, 3);
+  // //test for full house
+  // temp.splice(39, 2);
+  // temp.splice(26, 3);
+  // temp.splice(13, 3);
 
   // //test for straights
   // temp.splice(51, 1);
@@ -70,7 +70,7 @@ class App extends Component {
 
   newGame = async () => {
     console.log("clicked");
-    let tempDeck = new Deck(cardList());
+    let tempDeck = new Deck();
     tempDeck.createCards();
     let tempHand = tempDeck.draw(5);
     tempHand = tempDeck.getHandByIndex(tempHand);

@@ -52,4 +52,50 @@ body {
 .field__card-suit {
   font-size: 40px;
 }
+
+.card__wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.card__container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 15vw;
+  height: 25vw;
+  border: 1px solid #a9a9a9a9;
+  border-radius: 5px;
+  position: relative;
+  margin-left: 10px;
+}
+
+.card__value {
+  font-family: serif;
+  font-size: 16px;
+  position: absolute;
+  top: 5px;
+  left: 5px;
+}
+
+.card__suit {
+  font-size: 40px;
+}
 /*# sourceMappingURL=app.css.map */
