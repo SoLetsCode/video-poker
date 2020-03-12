@@ -63,6 +63,14 @@ const flush = (hand = []) => {
 };
 
 const straight = (hand = []) => {
+  //hard check for 10 J Q K A straight if first card is an Ace
+  let royalStraight = ["A", "10", "J", "Q", "K"];
+  if (hand[0].value === "A") {
+    if (hand.every((card, index) => card.value === royalStraight[index])) {
+      return true;
+    }
+  }
+
   let handCounter = 0;
   let startIndex = sequence.indexOf(hand[0].value);
   for (let i = startIndex; i < startIndex + hand.length; i++) {
@@ -88,6 +96,41 @@ const fourOfAKind = (hand = []) => {
   );
 };
 
+const fullHouse = (hand = []) => {
+  //since hand is sorted, either first 3 are triplets with pair or last 3 are triplets with a pair
+  return (
+    (hand.filter(card => card.value === hand[0].value).length === 3 &&
+      hand.filter(card => card.value === hand[3].value).length === 2) ||
+    (hand.filter(card => card.value === hand[0].value).length === 2 &&
+      hand.filter(card => card.value === hand[2].value).length === 3)
+  );
+};
+
+const threeOfAKind = (hand = []) => {
+  for (let i = 0; i < hand.length - 2; i++) {
+    if (
+      hand[i].value === hand[i + 1].value &&
+      hand[i].value === hand[i + 2].value
+    ) {
+      return true;
+    }
+  }
+
+  return false;
+};
+
+const twoPair = (hand = []) => {
+  let pairs = 0;
+  for (let i = 0; i < hand.length - 1; i++) {
+    if (hand[i].value === hand[i + 1].value) {
+      pairs++;
+      i++;
+    }
+  }
+
+  return pairs === 2;
+};
+
 const checkWin = (hand = []) => {
   //sorted hand is to assist checking for straights later
   let sortedHand = sortHand(hand);
@@ -95,10 +138,16 @@ const checkWin = (hand = []) => {
     return "ROYAL FLUSH";
   } else if (fourOfAKind(sortedHand)) {
     return "4 OF A KIND";
+  } else if (fullHouse(sortedHand)) {
+    return "FULL HOUSE!";
   } else if (flush(sortedHand)) {
     return "FLUSH";
   } else if (straight(sortedHand)) {
     return "Straight";
+  } else if (threeOfAKind(sortedHand)) {
+    return "3 of a kind";
+  } else if (twoPair(sortedHand)) {
+    return "2 pair";
   } else {
     return "LOSER";
   }

@@ -24,12 +24,26 @@ const cardList = () => {
   for (let i = 0; i < 52; i++) {
     temp.push(i);
   }
-  temp.splice(39, 1);
-  temp.splice(26, 1);
-  temp.splice(14, 2);
-  temp.splice(13, 1);
+
+  //test for full house
+  temp.splice(39, 2);
+  temp.splice(26, 3);
+  temp.splice(13, 3);
+
+  // //test for straights
+  // temp.splice(51, 1);
+  // temp.splice(37, 1);
+  // temp.splice(23, 1);
+  // temp.splice(7, 3);
+  // temp.splice(0, 1);
+
+  ////four of a kind test
+  // temp.splice(39, 1);
+  // temp.splice(26, 1);
+  // temp.splice(14, 2);
+  // temp.splice(13, 1);
   // temp.splice(3, 4);
-  temp.splice(0, 1);
+  // temp.splice(0, 1);
 
   return temp;
 };
