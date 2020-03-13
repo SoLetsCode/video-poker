@@ -9,37 +9,16 @@ export default class Field extends Component {
   };
 
   heldClick = event => {
-    console.log(event.currentTarget.title);
+    console.log(event.currentTarget);
     this.props.hand[event.currentTarget.title].toggleHeld();
   };
 
   displayHand = handArray => {
-    let suits = { d: "♦️", c: "♣️", h: "♥️", s: "♠️" };
     return handArray.map((data, index) => {
       return (
-        <div
-          className="field__card-container"
-          title={index}
-          onClick={this.heldClick}
-          key={uuidv4()}
-        >
-          <span className="field__card-value">{data.value}</span>
-          <span className="field__card-suit">{suits[data.suit]}</span>
+        <div onClick={this.heldClick} title={index}>
+          <CardObject value={data.value} suits={data.suit} key={uuidv4()} />
         </div>
-      );
-    });
-  };
-
-  displayHand2 = handArray => {
-    return handArray.map((data, index) => {
-      console.log("am I running?", data, index);
-      return (
-        <CardObject
-          value={data.value}
-          suits={data.suit}
-          index={index}
-          key={uuidv4()}
-        />
       );
     });
   };
@@ -48,7 +27,6 @@ export default class Field extends Component {
     return (
       <>
         <div className="field">{this.displayHand(this.props.hand)}</div>
-        <div className="field">{this.displayHand2(this.props.hand)}</div>
       </>
     );
   }

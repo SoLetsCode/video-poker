@@ -10,8 +10,8 @@ export default class Card {
   };
 
   toggleHeld = () => {
-    console.log("I am being held", this.held);
     this.held = !this.held;
+    console.log("I am being held", this.held);
   };
 
   getHeldStatus = () => {
