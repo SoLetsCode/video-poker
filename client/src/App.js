@@ -14,8 +14,10 @@ import "./styles/app.css";
 //helpers
 import Deck from "./helper/Deck";
 import checkWin from "./helper/checkWin";
+import paytable from "./helper/paytable";
 
 //import components here
+import Paytable from "./components/Paytable";
 import Field from "./components/Field";
 
 //testing function to restrict cards call cardList() in new Deck()
@@ -60,12 +62,14 @@ class App extends Component {
       hand: [],
       deck: [],
       message: "",
-      round: false
+      round: false,
+      paytable: paytable,
+      wager: 5
     };
   }
 
   componentDidMount() {
-    // this.newGame();
+    console.log(this.state.paytable);
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -78,6 +82,27 @@ class App extends Component {
     let tempHand = tempDeck.draw(5);
     tempHand = tempDeck.getHandByIndex(tempHand);
     this.setState({ deck: tempDeck, hand: tempHand });
+  };
+
+  drawCards = () => {
+    //go through hand array, see which ones are held and which ones are not put this result into tempHand
+    let tempHand = this.state.hand.map(card => {
+      if (!card.getHeldStatus()) {
+        return this.state.deck.getCardByIndex(this.state.deck.draw(1)[0]);
+      }
+      return card;
+    });
+    let roundState = !this.state.round;
+
+    //set temp hand and then use a callback function to check if the hand won.
+    this.setState({ hand: tempHand }, () => {
+      console.log("did you win?");
+      let handState = checkWin(this.state.hand);
+      this.setState({
+        message: handState,
+        round: roundState
+      });
+    });
   };
 
   round = () => {
@@ -95,31 +120,10 @@ class App extends Component {
     }
   };
 
-  drawCards = () => {
-    //go through hand array, see which ones are held and which ones are not
-    let tempHand = [...this.state.hand];
-    let roundState = !this.state.round;
-    this.state.hand.map((card, index) => {
-      if (!card.getHeldStatus()) {
-        tempHand[index] = this.state.deck.getCardByIndex(
-          this.state.deck.draw(1)[0]
-        );
-      }
-    });
-
-    this.setState({ hand: tempHand }, () => {
-      console.log("did you win?");
-      let handState = checkWin(this.state.hand);
-      this.setState({
-        message: handState,
-        round: roundState
-      });
-    });
-  };
-
   render() {
     return (
       <div className="App">
+        <Paytable wager={this.state.wager} paytable={this.state.paytable} />
         <Field hand={this.state.hand} />
         <button style={{ backgroundColor: "yellow" }} onClick={this.round}>
           {!this.state.round ? "New Game" : "Draw"}

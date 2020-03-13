@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 function CardObject({ value, suits, index }) {
   const [held = false, setHeld] = useState(false);
+
   let suit = { d: "♦️", c: "♣️", h: "♥️", s: "♠️" };
 
   const heldClick = event => {
