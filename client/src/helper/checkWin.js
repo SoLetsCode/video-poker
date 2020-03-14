@@ -144,21 +144,21 @@ const checkWin = (hand = []) => {
   //sorted hand is to assist checking for straights later
   let sortedHand = sortHand(hand);
   if (royalFlush(sortedHand)) {
-    return "ROYAL FLUSH";
+    return "rf";
   } else if (fourOfAKind(sortedHand)) {
-    return "4 OF A KIND";
+    return "fk";
   } else if (fullHouse(sortedHand)) {
-    return "FULL HOUSE!";
+    return "fh";
   } else if (flush(sortedHand)) {
-    return "FLUSH";
+    return "f";
   } else if (straight(sortedHand)) {
-    return "Straight";
+    return "s";
   } else if (threeOfAKind(sortedHand)) {
-    return "3 of a kind";
+    return "tk";
   } else if (twoPair(sortedHand)) {
-    return "2 pair";
+    return "tp";
   } else if (jackHighPair(sortedHand)) {
-    return "Pair jacks or better";
+    return "jp";
   } else {
     return "LOSER";
   }

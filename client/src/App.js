@@ -14,7 +14,7 @@ import "./styles/app.css";
 //helpers
 import Deck from "./helper/Deck";
 import checkWin from "./helper/checkWin";
-import paytable from "./helper/paytable";
+import { payTable, paytableTranslate } from "./helper/paytable";
 
 //import components here
 import Paytable from "./components/Paytable";
@@ -63,13 +63,13 @@ class App extends Component {
       deck: [],
       message: "",
       round: false,
-      paytable: paytable,
+      paytable: payTable,
       wager: 5
     };
   }
 
   componentDidMount() {
-    console.log(this.state.paytable);
+    //does this need to be here?
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -98,8 +98,14 @@ class App extends Component {
     this.setState({ hand: tempHand }, () => {
       console.log("did you win?");
       let handState = checkWin(this.state.hand);
+      let handTranslated =
+        handState === "LOSER"
+          ? "LOSER"
+          : `${paytableTranslate[handState]} you win ${
+              payTable[handState][this.state.wager - 1]
+            }`;
       this.setState({
-        message: handState,
+        message: handTranslated,
         round: roundState
       });
     });
@@ -120,9 +126,14 @@ class App extends Component {
     }
   };
 
+  spacebarClick = event => {
+    console.log("me");
+    console.log(event.keyCode);
+  };
+
   render() {
     return (
-      <div className="App">
+      <div className="App" onKeyUp={this.spacebarClick}>
         <Paytable wager={this.state.wager} paytable={this.state.paytable} />
         <Field hand={this.state.hand} />
         <button style={{ backgroundColor: "yellow" }} onClick={this.round}>

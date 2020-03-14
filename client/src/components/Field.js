@@ -8,16 +8,16 @@ export default class Field extends Component {
     //something should go into here
   };
 
-  heldClick = event => {
-    console.log(event.currentTarget);
-    this.props.hand[event.currentTarget.title].toggleHeld();
-  };
-
   displayHand = handArray => {
     return handArray.map((data, index) => {
       return (
-        <div onClick={this.heldClick} title={index}>
-          <CardObject value={data.value} suits={data.suit} key={uuidv4()} />
+        <div key={uuidv4()}>
+          <CardObject
+            value={data.value}
+            suits={data.suit}
+            index={index}
+            hand={this.props.hand}
+          />
         </div>
       );
     });
