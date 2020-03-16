@@ -19,6 +19,7 @@ import { payTable, paytableTranslate } from "./helper/paytable";
 //import components here
 import Paytable from "./components/Paytable";
 import Field from "./components/Field";
+import Credit from "./components/Credit";
 
 //testing function to restrict cards call cardList() in new Deck()
 const cardList = () => {
@@ -48,7 +49,8 @@ const cardList = () => {
   // temp.splice(0, 1);
 
   //royal flush
-  temp.splice(46, 7);
+  temp.splice(47, 5);
+  temp.splice(39, 1);
   //fix testing for royal flush, stop loop and draw cards when exceeded
 
   return temp;
@@ -64,7 +66,9 @@ class App extends Component {
       message: "",
       round: false,
       paytable: payTable,
-      wager: 5
+      wager: 5,
+      credit: 500,
+      change: 0
     };
   }
 
@@ -81,14 +85,26 @@ class App extends Component {
     tempDeck.createCards();
     let tempHand = tempDeck.draw(5);
     tempHand = tempDeck.getHandByIndex(tempHand);
-    this.setState({ deck: tempDeck, hand: tempHand });
+    let tempCredit = this.state.credit - this.state.wager;
+    let changeAmount = -5;
+    this.setState({
+      deck: tempDeck,
+      hand: tempHand,
+      credit: tempCredit,
+      change: changeAmount
+    });
   };
 
   drawCards = () => {
     //go through hand array, see which ones are held and which ones are not put this result into tempHand
     let tempHand = this.state.hand.map(card => {
       if (!card.getHeldStatus()) {
-        return this.state.deck.getCardByIndex(this.state.deck.draw(1)[0]);
+        let returnedCard = this.state.deck.getCardByIndex(
+          this.state.deck.draw(1)[0]
+        );
+        if (returnedCard) {
+          return returnedCard; //this fix is just in case the deck runs out of cards useful when forcing hands
+        }
       }
       return card;
     });
@@ -104,11 +120,29 @@ class App extends Component {
           : `${paytableTranslate[handState]} you win ${
               payTable[handState][this.state.wager - 1]
             }`;
+      this.calculateHand(handState);
       this.setState({
         message: handTranslated,
         round: roundState
       });
     });
+  };
+
+  calculateHand = handState => {
+    let tempCredits = this.state.credit;
+    let changeAmount = 0;
+    if (handState === "LOSER") {
+      return;
+    } else {
+      tempCredits += payTable[handState][this.state.wager - 1];
+      changeAmount = payTable[handState][this.state.wager - 1];
+      this.setState({
+        credit: tempCredits,
+        change: changeAmount
+      });
+    }
+
+    //takes a string, if it's loser do nothing, if it's a winner add it to credits
   };
 
   round = () => {
@@ -126,6 +160,12 @@ class App extends Component {
     }
   };
 
+  setCredit = credit => {
+    this.setState({
+      credit: credit
+    });
+  };
+
   spacebarClick = event => {
     console.log("me");
     console.log(event.keyCode);
@@ -139,6 +179,11 @@ class App extends Component {
         <button style={{ backgroundColor: "yellow" }} onClick={this.round}>
           {!this.state.round ? "New Game" : "Draw"}
         </button>
+        <Credit
+          credit={this.state.credit - this.state.change}
+          change={this.state.change}
+        />
+
         <div>{this.state.message}</div>
       </div>
     );
