@@ -1,5 +1,3 @@
-//checkWin checks if the hand is a winner or not
-
 //helper functions/objects
 let sequence = [
   "A",
@@ -37,6 +35,20 @@ const sortHand = (hand = []) => {
   return sortedHand;
 };
 
+const numOfSameSuit = (hand = []) => {
+  //returns highest number of same suit
+  let suits = ["d", "c", "h", "s"];
+  let number = 0;
+  for (let each of suits) {
+    let numSuits = hand.filter(card => card.suit === each).length;
+    if (number < numSuits) {
+      number = numSuits;
+    }
+  }
+  console.log(`i'm in numofsamesuit ${number}`);
+  return number;
+};
+
 //actually checking whether hands are winners
 
 const royalFlush = (hand = []) => {
@@ -58,8 +70,23 @@ const royalFlush = (hand = []) => {
   }
 };
 
+const straightFlush = (hand = []) => {
+  if (flush(hand) && straight(hand)) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
 const flush = (hand = []) => {
   return hand.every(sameSuit);
+};
+
+const fourToRoyal = (hand = []) => {
+  if (numOfSameSuit(hand) !== 4) {
+    return false;
+  }
+  //how to calculate that there are at least 4 suited cards and they are 10, J, Q, K or A
 };
 
 const straight = (hand = []) => {
@@ -85,14 +112,6 @@ const straight = (hand = []) => {
   }
 
   return true;
-};
-
-const straightFlush = (hand = []) => {
-  if (flush(hand) && straight(hand)) {
-    return true;
-  } else {
-    return false;
-  }
 };
 
 const fourOfAKind = (hand = []) => {
@@ -150,28 +169,60 @@ const jackHighPair = (hand = []) => {
 
 const checkWin = (hand = []) => {
   //sorted hand is to assist checking for straights later
-  let sortedHand = sortHand(hand);
-  if (royalFlush(sortedHand)) {
+  if (royalFlush(hand)) {
     return "rf";
-  } else if (straightFlush(sortedHand)) {
+  } else if (straightFlush(hand)) {
     return "sf";
-  } else if (fourOfAKind(sortedHand)) {
+  } else if (fourOfAKind(hand)) {
     return "fk";
-  } else if (fullHouse(sortedHand)) {
+  } else if (fullHouse(hand)) {
     return "fh";
-  } else if (flush(sortedHand)) {
+  } else if (flush(hand)) {
     return "f";
-  } else if (straight(sortedHand)) {
+  } else if (straight(hand)) {
     return "s";
-  } else if (threeOfAKind(sortedHand)) {
+  } else if (threeOfAKind(hand)) {
     return "tk";
-  } else if (twoPair(sortedHand)) {
+  } else if (twoPair(hand)) {
     return "tp";
-  } else if (jackHighPair(sortedHand)) {
+  } else if (jackHighPair(hand)) {
     return "jp";
   } else {
     return "LOSER";
   }
 };
 
-export default checkWin;
+const calculateMove = hand => {
+  let sortedHand = sortHand(hand);
+  let checkWinOutcome = checkWin(sortedHand);
+  console.log(checkWinOutcome);
+  if (
+    checkWinOutcome === "rf" ||
+    checkWinOutcome === "fk" ||
+    checkWinOutcome === "sf"
+  ) {
+    //should hold these ones
+    return hand;
+  } else if (fourToRoyal(hand)) {
+  }
+};
+
+export default calculateMove;
+
+// Four of a kind, straight flush, royal flush
+// 4 to a royal flush
+// Three of a kind, straight, flush, full house
+// 4 to a straight flush
+// Two pair
+// High pair
+// 3 to a royal flush
+// 4 to a flush
+// Low pair
+// 4 to an outside straight
+// 2 suited high cards
+// 3 to a straight flush
+// 2 unsuited high cards (if more than 2 then pick the lowest 2)
+// Suited 10/J, 10/Q, or 10/K
+// One high card
+// Discard everything
+//from https://wizardofodds.com/games/video-poker/strategy/jacks-or-better/9-6/simple/

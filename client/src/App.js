@@ -1,12 +1,11 @@
 //libraries
 import React, { Component } from "react";
-// import {
-//   BrowserRouter as Router,
-//   Route,
-//   Redirect,
-//   Switch,
-//   Link
-// } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Redirect,
+  Switch
+} from "react-router-dom";
 
 //styles
 import "./styles/app.css";
@@ -15,8 +14,10 @@ import "./styles/app.css";
 import Deck from "./helper/Deck";
 import checkWin from "./helper/checkWin";
 import { payTable, paytableTranslate } from "./helper/paytable";
+import strategyGuide from "./helper/strategyGuide";
 
 //import components here
+import Navbar from "./components/Navbar";
 import Paytable from "./components/Paytable";
 import Field from "./components/Field";
 import Credit from "./components/Credit";
@@ -50,7 +51,7 @@ const cardList = () => {
 
   //royal flush
   temp.splice(47, 5);
-  temp.splice(39, 1);
+  //temp.splice(39, 1);
   //fix testing for royal flush, stop loop and draw cards when exceeded
 
   return temp;
@@ -81,12 +82,15 @@ class App extends Component {
   }
 
   newGame = () => {
-    let tempDeck = new Deck();
+    let tempDeck = new Deck(cardList());
     tempDeck.createCards();
     let tempHand = tempDeck.draw(5);
     tempHand = tempDeck.getHandByIndex(tempHand);
     let tempCredit = this.state.credit - this.state.wager;
     let changeAmount = -5;
+    //testing
+    strategyGuide(tempHand);
+    //testing
     this.setState({
       deck: tempDeck,
       hand: tempHand,
@@ -173,7 +177,8 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App" onKeyUp={this.spacebarClick}>
+      <Router>
+        <Navbar />
         <Paytable wager={this.state.wager} paytable={this.state.paytable} />
         <Field hand={this.state.hand} />
         <button style={{ backgroundColor: "yellow" }} onClick={this.round}>
@@ -185,7 +190,7 @@ class App extends Component {
         />
 
         <div>{this.state.message}</div>
-      </div>
+      </Router>
     );
   }
 }
