@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Countup from "react-countup"; //need to figure out how this works
 
 export default function Credit({ credit, change }) {
@@ -7,7 +7,7 @@ export default function Credit({ credit, change }) {
 
   return (
     <div className="credit__container">
-      {Credit} <Countup start={start} end={end} useEasing={false} />
+      <Countup start={start} end={end} useEasing={false} />
     </div>
   );
 }

@@ -1,12 +1,11 @@
 //libraries
 import React, { Component } from "react";
-// import {
-//   BrowserRouter as Router,
-//   Route,
-//   Redirect,
-//   Switch,
-//   Link
-// } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Redirect,
+  Switch
+} from "react-router-dom";
 
 //styles
 import "./styles/app.css";
@@ -15,11 +14,14 @@ import "./styles/app.css";
 import Deck from "./helper/Deck";
 import checkWin from "./helper/checkWin";
 import { payTable, paytableTranslate } from "./helper/paytable";
+import strategyGuide from "./helper/strategyGuide";
 
 //import components here
+import Navbar from "./components/Navbar";
 import Paytable from "./components/Paytable";
 import Field from "./components/Field";
 import Credit from "./components/Credit";
+import Trainer from "./components/Trainer";
 
 //testing function to restrict cards call cardList() in new Deck()
 const cardList = () => {
@@ -48,10 +50,20 @@ const cardList = () => {
   // temp.splice(3, 4);
   // temp.splice(0, 1);
 
-  //royal flush
-  temp.splice(47, 5);
-  temp.splice(39, 1);
-  //fix testing for royal flush, stop loop and draw cards when exceeded
+  // //royal flush
+  // temp.splice(48, 4);
+  // temp.splice(39, 1);
+
+  // //straight flush
+  // temp.splice(19, 2);
+  // temp.splice(15, 3);
+  // temp.splice(1, 2);
+
+  // //three of a kind
+  // temp.splice(40, 2);
+  // temp.splice(26, 1);
+  // temp.splice(13, 1);
+  // temp.splice(0, 1);
 
   return temp;
 };
@@ -68,7 +80,9 @@ class App extends Component {
       paytable: payTable,
       wager: 5,
       credit: 500,
-      change: 0
+      change: 0,
+      tip: "", //tip from helper
+      hold: [false, false, false, false, false]
     };
   }
 
@@ -81,17 +95,20 @@ class App extends Component {
   }
 
   newGame = () => {
-    let tempDeck = new Deck();
+    let tempDeck = new Deck(); //for testing put cardList() in here.
     tempDeck.createCards();
     let tempHand = tempDeck.draw(5);
     tempHand = tempDeck.getHandByIndex(tempHand);
     let tempCredit = this.state.credit - this.state.wager;
     let changeAmount = -5;
+    let { tip, hold } = strategyGuide(tempHand);
     this.setState({
       deck: tempDeck,
       hand: tempHand,
       credit: tempCredit,
-      change: changeAmount
+      change: changeAmount,
+      tip: tip,
+      hold: hold
     });
   };
 
@@ -173,8 +190,10 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App" onKeyUp={this.spacebarClick}>
+      <Router>
+        <Navbar />
         <Paytable wager={this.state.wager} paytable={this.state.paytable} />
+        <Trainer hold={this.state.hold} tip={this.state.tip} />
         <Field hand={this.state.hand} />
         <button style={{ backgroundColor: "yellow" }} onClick={this.round}>
           {!this.state.round ? "New Game" : "Draw"}
@@ -185,7 +204,7 @@ class App extends Component {
         />
 
         <div>{this.state.message}</div>
-      </div>
+      </Router>
     );
   }
 }

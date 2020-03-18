@@ -87,6 +87,14 @@ const straight = (hand = []) => {
   return true;
 };
 
+const straightFlush = (hand = []) => {
+  if (flush(hand) && straight(hand)) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
 const fourOfAKind = (hand = []) => {
   //we know if there aren't 4 of a kind in the 1st and 2nd slot it can't exist in the array. Ignore checking others.
 
@@ -145,6 +153,8 @@ const checkWin = (hand = []) => {
   let sortedHand = sortHand(hand);
   if (royalFlush(sortedHand)) {
     return "rf";
+  } else if (straightFlush(sortedHand)) {
+    return "sf";
   } else if (fourOfAKind(sortedHand)) {
     return "fk";
   } else if (fullHouse(sortedHand)) {
