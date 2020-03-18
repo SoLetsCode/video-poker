@@ -14,6 +14,10 @@ body {
           box-sizing: inherit;
 }
 
+.app:focus {
+  outline: transparent;
+}
+
 .field {
   display: -webkit-box;
   display: -ms-flexbox;

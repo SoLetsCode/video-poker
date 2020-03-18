@@ -7,7 +7,7 @@ function CardObject({ value, suits, index, hand, round }) {
 
   const heldClick = event => {
     if (round !== false) {
-      //used to stop player from being to hold cards at the end of the game
+      //if used to stop player from being to hold cards at the end of the game
       hand[event.currentTarget.title].toggleHeld();
       setHeld(!held);
     }
@@ -15,7 +15,12 @@ function CardObject({ value, suits, index, hand, round }) {
 
   return (
     <section className="card__wrapper">
-      <div className="card__container" title={index} onClick={heldClick}>
+      <div
+        className="card__container"
+        title={index}
+        id={`card${index}`}
+        onClick={heldClick}
+      >
         <span className="card__value">{value}</span>
         <span className="card__suit">{suit[suits]}</span>
       </div>

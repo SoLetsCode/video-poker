@@ -12,6 +12,13 @@ body {
 *::after {
   box-sizing: inherit;
 }
+
+.app {
+  &:focus {
+    outline: transparent;
+  }
+}
+
 @import "./partials/colors";
 
 @import "./partials/field";

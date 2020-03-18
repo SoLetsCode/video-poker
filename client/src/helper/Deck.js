@@ -38,13 +38,13 @@ export default class Deck {
     //draw NUM of cards. return drawn cards.
     let index = 0;
     let cards = [];
+
     for (let i = 0; i < num; i++) {
       index = this.randomize(this.deck.length);
 
       if (this.dealtCards.length > 51) {
         break;
       }
-
       while (this.dealtCards.some(value => value === index)) {
         index = this.randomize(this.deck.length);
       }

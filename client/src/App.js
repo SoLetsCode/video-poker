@@ -87,9 +87,7 @@ class App extends Component {
     };
   }
 
-  componentDidMount() {
-    //does this need to be here?
-  }
+  componentDidMount() {}
 
   componentDidUpdate(prevProps, prevState) {
     //do I need to use this?
@@ -184,9 +182,20 @@ class App extends Component {
     });
   };
 
-  spacebarClick = event => {
-    console.log("me");
-    console.log(event.keyCode);
+  keyboardPress = event => {
+    //used to control the game
+    //spacebar 32, 49-50-51-52-53 (1-5) 13, enter 84 t
+    if (event.keyCode === 32) {
+      this.round();
+    } else if (event.keyCode >= 49 && event.keyCode <= 53) {
+      if (this.state.round !== false) {
+        //very dirty solution, looking for an alternative
+        let targetCard = document.querySelector(`#card${event.keyCode - 49}`);
+        targetCard.click();
+      }
+    } else if (event.keyCode === 84) {
+      this.trainerClick();
+    }
   };
 
   trainerClick = () => {
@@ -197,31 +206,33 @@ class App extends Component {
 
   render() {
     return (
-      <Router>
-        <Navbar />
-        <Paytable wager={this.state.wager} paytable={this.state.paytable} />
-        <button
-          style={{ backgroundColor: "yellow" }}
-          onClick={this.trainerClick}
-        >
-          {this.state.trainer ? "Turn Trainer Off" : "Turn Trainer On"}
-        </button>
-        {this.state.trainer ? (
-          <Trainer hold={this.state.hold} tip={this.state.tip} />
-        ) : (
-          ""
-        )}
-        <Field hand={this.state.hand} round={this.state.round} />
-        <button style={{ backgroundColor: "yellow" }} onClick={this.round}>
-          {!this.state.round ? "New Game" : "Draw"}
-        </button>
-        <Credit
-          credit={this.state.credit - this.state.change}
-          change={this.state.change}
-        />
+      <div className="app" tabIndex="0" onKeyDown={this.keyboardPress}>
+        <Router>
+          <Navbar />
+          <Paytable wager={this.state.wager} paytable={this.state.paytable} />
+          <button
+            style={{ backgroundColor: "yellow" }}
+            onClick={this.trainerClick}
+          >
+            {this.state.trainer ? "Turn Trainer Off" : "Turn Trainer On"}
+          </button>
+          {this.state.trainer ? (
+            <Trainer hold={this.state.hold} tip={this.state.tip} />
+          ) : (
+            ""
+          )}
+          <Field hand={this.state.hand} round={this.state.round} />
+          <button style={{ backgroundColor: "yellow" }} onClick={this.round}>
+            {!this.state.round ? "New Game" : "Draw"}
+          </button>
+          <Credit
+            credit={this.state.credit - this.state.change}
+            change={this.state.change}
+          />
 
-        <div>{this.state.message}</div>
-      </Router>
+          <div>{this.state.message}</div>
+        </Router>
+      </div>
     );
   }
 }
