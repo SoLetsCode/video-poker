@@ -7,7 +7,7 @@ export default function Trainer({ tip, hold }) {
   return (
     <div className="trainer">
       <div className="trainer__tip">{tip}</div>
-      {holdList}
+      <div className="trainer__container">{holdList}</div>
     </div>
   );
 }
