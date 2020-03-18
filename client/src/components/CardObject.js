@@ -1,13 +1,16 @@
 import React, { useState } from "react";
 
-function CardObject({ value, suits, index, hand }) {
+function CardObject({ value, suits, index, hand, round }) {
   const [held = false, setHeld] = useState(false);
 
   let suit = { d: "♦️", c: "♣️", h: "♥️", s: "♠️" };
 
   const heldClick = event => {
-    hand[event.currentTarget.title].toggleHeld();
-    setHeld(!held);
+    if (round !== false) {
+      //used to stop player from being to hold cards at the end of the game
+      hand[event.currentTarget.title].toggleHeld();
+      setHeld(!held);
+    }
   };
 
   return (

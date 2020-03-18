@@ -17,6 +17,7 @@ export default class Field extends Component {
             suits={data.suit}
             index={index}
             hand={this.props.hand}
+            round={this.props.round}
           />
         </div>
       );

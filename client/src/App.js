@@ -82,7 +82,8 @@ class App extends Component {
       credit: 500,
       change: 0,
       tip: "", //tip from helper
-      hold: [false, false, false, false, false]
+      hold: [false, false, false, false, false],
+      trainer: true
     };
   }
 
@@ -103,12 +104,12 @@ class App extends Component {
     let changeAmount = -5;
     let { tip, hold } = strategyGuide(tempHand);
     this.setState({
-      deck: tempDeck,
-      hand: tempHand,
       credit: tempCredit,
       change: changeAmount,
-      tip: tip,
-      hold: hold
+      deck: tempDeck,
+      hand: tempHand,
+      hold: hold,
+      tip: tip
     });
   };
 
@@ -188,13 +189,29 @@ class App extends Component {
     console.log(event.keyCode);
   };
 
+  trainerClick = () => {
+    this.setState({
+      trainer: !this.state.trainer
+    });
+  };
+
   render() {
     return (
       <Router>
         <Navbar />
         <Paytable wager={this.state.wager} paytable={this.state.paytable} />
-        <Trainer hold={this.state.hold} tip={this.state.tip} />
-        <Field hand={this.state.hand} />
+        <button
+          style={{ backgroundColor: "yellow" }}
+          onClick={this.trainerClick}
+        >
+          {this.state.trainer ? "Turn Trainer Off" : "Turn Trainer On"}
+        </button>
+        {this.state.trainer ? (
+          <Trainer hold={this.state.hold} tip={this.state.tip} />
+        ) : (
+          ""
+        )}
+        <Field hand={this.state.hand} round={this.state.round} />
         <button style={{ backgroundColor: "yellow" }} onClick={this.round}>
           {!this.state.round ? "New Game" : "Draw"}
         </button>
