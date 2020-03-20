@@ -9,10 +9,12 @@ app.use(express.urlencoded({ extended: false }));
 //routes
 const sample = require("./routes/api/sample.js");
 const logRoute = require("./routes/api/logRoute.js");
+const userRoute = require("./routes/api/userRoute.js");
 
 //URLs to access each API
 app.use("/api/sample", sample);
 app.use("/api/log", logRoute);
+app.use("/api/user", userRoute);
 
 app.listen(PORT, () => {
   console.log("listening on port 5000");

@@ -6,7 +6,7 @@ const Logs = require("../../models/logs");
 const Users = require("../../models/users");
 
 router.get("/", (req, res) => {
-  Logs.where(req.query)
+  Logs.where(req.body)
     .fetchAll()
     .then(logs => {
       res.status(200).json({ logs });
