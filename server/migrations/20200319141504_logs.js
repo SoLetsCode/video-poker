@@ -4,6 +4,7 @@ exports.up = function(knex) {
     table.string("hand").notNullable();
     table.string("playerhold").notNullable();
     table.string("trainerhold").notNullable();
+    table.boolean("trainerused").defaultTo(false);
     table
       .integer("user_id")
       .unsigned()

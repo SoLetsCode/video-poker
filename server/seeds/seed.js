@@ -5,18 +5,21 @@ const logsData = [
     hand: JSON.stringify(["qh", "qc", "4h", "3s", "5s"]),
     playerhold: JSON.stringify(["qh", "qc", "--", "--", "--"]),
     trainerhold: JSON.stringify(["qh", "qc", "--", "--", "--"]),
+    trainerused: false,
     outcome: 5
   },
   {
     hand: JSON.stringify(["10c", "3d", "4h", "3s", "5s"]),
     playerhold: JSON.stringify(["--", "--", "--", "--", "--"]),
     trainerhold: JSON.stringify(["--", "3d", "--", "3s", "--"]),
+    trainerused: true,
     outcome: 0
   },
   {
     hand: JSON.stringify(["10c", "10d", "10h", "3s", "5s"]),
     playerhold: JSON.stringify(["--", "--", "--", "--", "--"]),
     trainerhold: JSON.stringify(["10c", "10d", "10h", "--", "--"]),
+    trainerused: false,
     outcome: 30
   }
 ];
