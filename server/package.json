@@ -8,7 +8,11 @@
     "start": "node server.js",
     "client": "npm start --prefix ../client",
     "serve": "nodemon server.js",
-    "dev": "concurrently \"npm run serve\" \"npm run client\""
+    "dev": "concurrently \"npm run serve\" \"npm run client\"",
+    "migrate": "knex migrate:latest",
+    "migrate:down": "knex migrate:down",
+    "migrate:rollback": "knex migrate:rollback",
+    "seed": "knex seed:run"
   },
   "keywords": [
     "hackathon",
@@ -23,8 +27,11 @@
   "author": "Derek Brian Alana Kaity Austin Franka Helaleh Karla Paul",
   "license": "ISC",
   "dependencies": {
+    "bookshelf": "^1.1.0",
     "concurrently": "^5.1.0",
     "express": "^4.17.1",
+    "knex": "^0.20.12",
+    "mysql": "^2.18.1",
     "nodemon": "^2.0.2"
   }
 }
