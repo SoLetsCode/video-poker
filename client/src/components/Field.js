@@ -27,7 +27,10 @@ export default class Field extends Component {
   render() {
     return (
       <>
-        <div className="field">{this.displayHand(this.props.hand)}</div>
+        <div className="field">
+          {this.displayHand(this.props.hand)}
+          <div className="field__message">{this.props.message}</div>
+        </div>
       </>
     );
   }

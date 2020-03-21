@@ -7,6 +7,7 @@ export default function Credit({ credit, change }) {
 
   return (
     <div className="credit__container">
+      {"Credits:"}
       <Countup start={start} end={end} useEasing={false} />
     </div>
   );

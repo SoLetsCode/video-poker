@@ -16,6 +16,7 @@
     border-radius: 5px;
     position: relative;
     margin-left: 10px;
+    background-color: whitesmoke;
   }
 
   &__value {
@@ -28,5 +29,10 @@
 
   &__suit {
     font-size: 40px;
+  }
+
+  &__label {
+    color: purple;
+    font-weight: bold;
   }
 }

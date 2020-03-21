@@ -1,11 +1,7 @@
 //libraries
 import React, { Component } from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  Redirect,
-  Switch
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import axios from "axios";
 
 //styles
 import "./styles/app.css";
@@ -15,6 +11,7 @@ import Deck from "./helper/Deck";
 import checkWin from "./helper/checkWin";
 import { payTable, paytableTranslate } from "./helper/paytable";
 import strategyGuide from "./helper/strategyGuide";
+import { cardFonts } from "./helper/cardFont";
 
 //import components here
 import Navbar from "./components/Navbar";
@@ -22,6 +19,9 @@ import Paytable from "./components/Paytable";
 import Field from "./components/Field";
 import Credit from "./components/Credit";
 import Trainer from "./components/Trainer";
+import Log from "./components/Log";
+import Strategy from "./components/Strategy";
+import Controls from "./components/Controls";
 
 //testing function to restrict cards call cardList() in new Deck()
 const cardList = () => {
@@ -72,6 +72,8 @@ class App extends Component {
   constructor(props) {
     super(props);
 
+    this.keyBoardControl = React.createRef();
+
     this.state = {
       hand: [],
       deck: [],
@@ -83,15 +85,43 @@ class App extends Component {
       change: 0,
       tip: "", //tip from helper
       hold: [false, false, false, false, false],
-      trainer: true
+      trainer: true,
+      user_id: 13,
+      playerLog: []
     };
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    this.keyBoardControl.current.focus();
+
+    //grab log information for user
+    axios.get("/api/log", { user_id: this.state.user_id }).then(res =>
+      this.setState({
+        playerLog: res.data.logs
+      })
+    );
+  }
 
   componentDidUpdate(prevProps, prevState) {
     //do I need to use this?
   }
+
+  calculateHand = handState => {
+    let tempCredits = this.state.credit;
+    let changeAmount = 0;
+    if (handState === "LOSER") {
+      return -this.state.wager;
+    } else {
+      tempCredits += payTable[handState][this.state.wager - 1];
+      changeAmount = payTable[handState][this.state.wager - 1];
+      this.setState({
+        credit: tempCredits,
+        change: changeAmount
+      });
+      return changeAmount - this.state.wager;
+    }
+    //takes a string, if it's loser return -5, if it's a winner return winnings -5 and add it to credits
+  };
 
   newGame = () => {
     let tempDeck = new Deck(); //for testing put cardList() in here.
@@ -113,6 +143,17 @@ class App extends Component {
 
   drawCards = () => {
     //go through hand array, see which ones are held and which ones are not put this result into tempHand
+
+    //***********section used to store intitial variables to log for function logHand()***********
+    const dealtHand = this.state.hand.map(card => card.cardString());
+    const playerHold = this.state.hand.map(card =>
+      card.getHeldStatus() ? card.cardString() : "--"
+    );
+    const trainerHold = this.state.hold.map((hold, index) =>
+      hold ? this.state.hand[index].cardString() : "--"
+    );
+    //***********section end***********
+
     let tempHand = this.state.hand.map(card => {
       if (!card.getHeldStatus()) {
         let returnedCard = this.state.deck.getCardByIndex(
@@ -136,7 +177,15 @@ class App extends Component {
           : `${paytableTranslate[handState]} you win ${
               payTable[handState][this.state.wager - 1]
             }`;
-      this.calculateHand(handState);
+      let outcome = this.calculateHand(handState); //store the last remaining variable required for logHand()
+      this.logHand(
+        dealtHand,
+        playerHold,
+        trainerHold,
+        this.state.user_id,
+        outcome,
+        this.state.trainer
+      );
       this.setState({
         message: handTranslated,
         round: roundState
@@ -144,24 +193,33 @@ class App extends Component {
     });
   };
 
-  calculateHand = handState => {
-    let tempCredits = this.state.credit;
-    let changeAmount = 0;
-    if (handState === "LOSER") {
-      return;
-    } else {
-      tempCredits += payTable[handState][this.state.wager - 1];
-      changeAmount = payTable[handState][this.state.wager - 1];
-      this.setState({
-        credit: tempCredits,
-        change: changeAmount
-      });
-    }
+  logHand = (dealtHand, playerHold, trainerHold, user_id, outcome, trainer) => {
+    axios
+      .post("/api/log", {
+        hand: dealtHand,
+        playerhold: playerHold,
+        trainerhold: trainerHold,
+        user_id: user_id,
+        outcome: outcome,
+        trainerused: trainer
+      })
+      .then(res => {
+        console.log(`log successful ${res.data}`);
+        this.grabLog();
+      })
+      .catch(error => console.log(error));
+  };
 
-    //takes a string, if it's loser do nothing, if it's a winner add it to credits
+  grabLog = () => {
+    axios.get("/api/log", { user_id: this.state.user_id }).then(res =>
+      this.setState({
+        playerLog: res.data.logs
+      })
+    );
   };
 
   round = () => {
+    this.keyBoardControl.current.focus();
     if (this.state.round === false) {
       let roundState = !this.state.round;
       console.log("starting new game time to hold cards");
@@ -199,6 +257,7 @@ class App extends Component {
   };
 
   trainerClick = () => {
+    this.keyBoardControl.current.focus();
     this.setState({
       trainer: !this.state.trainer
     });
@@ -206,31 +265,51 @@ class App extends Component {
 
   render() {
     return (
-      <div className="app" tabIndex="0" onKeyDown={this.keyboardPress}>
+      <div
+        className="app"
+        ref={this.keyBoardControl}
+        tabIndex="0"
+        onKeyDown={this.keyboardPress}
+      >
         <Router>
           <Navbar />
-          <Paytable wager={this.state.wager} paytable={this.state.paytable} />
-          <button
-            style={{ backgroundColor: "yellow" }}
-            onClick={this.trainerClick}
-          >
-            {this.state.trainer ? "Turn Trainer Off" : "Turn Trainer On"}
-          </button>
-          {this.state.trainer ? (
-            <Trainer hold={this.state.hold} tip={this.state.tip} />
-          ) : (
-            ""
-          )}
-          <Field hand={this.state.hand} round={this.state.round} />
-          <button style={{ backgroundColor: "yellow" }} onClick={this.round}>
-            {!this.state.round ? "New Game" : "Draw"}
-          </button>
-          <Credit
-            credit={this.state.credit - this.state.change}
-            change={this.state.change}
-          />
-
-          <div>{this.state.message}</div>
+          <Switch>
+            <Route exact path="/">
+              <Paytable
+                wager={this.state.wager}
+                paytable={this.state.paytable}
+              />
+              <button className="app__button" onClick={this.trainerClick}>
+                {this.state.trainer ? "Turn Trainer Off" : "Turn Trainer On"}
+              </button>
+              {this.state.trainer ? (
+                <Trainer hold={this.state.hold} tip={this.state.tip} />
+              ) : (
+                ""
+              )}
+              <Field
+                hand={this.state.hand}
+                round={this.state.round}
+                message={this.state.message}
+              />
+              <button className="app__button" onClick={this.round}>
+                {!this.state.round ? "New Game" : "Draw"}
+              </button>
+              <Credit
+                credit={this.state.credit - this.state.change}
+                change={this.state.change}
+              />
+            </Route>
+            <Route path="/log">
+              <Log playerLog={this.state.playerLog} />
+            </Route>
+            <Route path="/strategy">
+              <Strategy />
+            </Route>
+            <Route path="/controls">
+              <Controls />
+            </Route>
+          </Switch>
         </Router>
       </div>
     );

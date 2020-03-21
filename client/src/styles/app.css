@@ -1,10 +1,12 @@
 /* reset the page */
+@import url("https://fonts.googleapis.com/css?family=Russo+One&display=swap");
 html,
 body {
   margin: 0;
   padding: 0;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+  font-family: "Russo One", sans-serif;
 }
 
 *,
@@ -14,8 +16,144 @@ body {
           box-sizing: inherit;
 }
 
+.app {
+  background-image: radial-gradient(darkgreen, green, darkgreen);
+  background-size: cover;
+  background-repeat: repeat;
+  min-height: 100vh;
+}
+
 .app:focus {
   outline: transparent;
+}
+
+.app__button {
+  border-radius: 10px;
+  background-color: black;
+  color: white;
+  padding: 5px;
+  display: block;
+  margin: 5px auto;
+  font-size: 1em;
+  font-family: "Russo One", sans-serif;
+}
+
+.paytable {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  width: 100%;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin: 50px 0 50px 0;
+}
+
+.paytable__outer-container {
+  width: 50%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.paytable__hand-title {
+  font-weight: bold;
+  text-align: center;
+}
+
+.navbar {
+  background-color: black;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+}
+
+.navbar__link {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  text-decoration: none;
+  color: white;
+  padding: 5px 0;
+  text-align: center;
+}
+
+.navbar__link:hover {
+  background-color: whitesmoke;
+  color: black;
+}
+
+.log__container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  background-color: darkslategrey;
+  color: white;
+  font-size: 12px;
+}
+
+.log__container-wrong {
+  background-color: red;
+}
+
+.log__container-correct {
+  background-color: darkslategrey;
+  color: white;
+}
+
+.log__wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.log__wrapper-hand {
+  -webkit-box-flex: 33%;
+      -ms-flex: 33%;
+          flex: 33%;
+}
+
+.log__wrapper-playerhold {
+  -webkit-box-flex: 26%;
+      -ms-flex: 26%;
+          flex: 26%;
+}
+
+.log__wrapper-trainerhold {
+  -webkit-box-flex: 26%;
+      -ms-flex: 26%;
+          flex: 26%;
+}
+
+.log__wrapper-outcome {
+  -webkit-box-flex: 10%;
+      -ms-flex: 10%;
+          flex: 10%;
 }
 
 .field {
@@ -25,6 +163,19 @@ body {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  position: relative;
+  margin: 0 0 15px 0;
+}
+
+.field__message {
+  position: absolute;
+  font-size: 1.5em;
+  font-weight: bold;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  text-align: center;
+  bottom: 50%;
 }
 
 .field__card-container {
@@ -89,6 +240,7 @@ body {
   border-radius: 5px;
   position: relative;
   margin-left: 10px;
+  background-color: whitesmoke;
 }
 
 .card__value {
@@ -101,6 +253,11 @@ body {
 
 .card__suit {
   font-size: 40px;
+}
+
+.card__label {
+  color: purple;
+  font-weight: bold;
 }
 
 .trainer {
@@ -125,6 +282,13 @@ body {
           align-items: center;
 }
 
+.trainer__tip {
+  font-size: 1.5em;
+  margin: 10px;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
 .trainer__hold {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -143,6 +307,58 @@ body {
 }
 
 .trainer__hold-active {
-  background-color: blue;
+  background-color: orange;
+}
+
+.credit__container {
+  background-color: orange;
+  color: darkgreen;
+  font-size: 2em;
+  font-weight: bold;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin: 50px 30px 50px 30px;
+  border-radius: 100px;
+}
+
+.strategy {
+  margin: 1em;
+}
+
+.strategy__list-item {
+  font-size: 1.5em;
+}
+
+.strategy__list-item:hover {
+  color: white;
+}
+
+.strategy__source {
+  font-size: 1.5em;
+}
+
+.controls {
+  margin: 1em;
+}
+
+.controls__wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+}
+
+.controls__container {
+  font-weight: bold;
+  padding: 1em;
+  background-color: #ffa500;
+  border-radius: 15px;
+  font-size: 1.5em;
 }
 /*# sourceMappingURL=app.css.map */

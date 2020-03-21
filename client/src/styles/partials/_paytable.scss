@@ -1,0 +1,20 @@
+.paytable {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: center;
+  margin: 50px 0 50px 0;
+
+  &__outer-container {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__hand-title {
+    font-weight: bold;
+    text-align: center;
+  }
+}

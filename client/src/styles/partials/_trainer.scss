@@ -8,6 +8,13 @@
     align-items: center;
   }
 
+  &__tip {
+    font-size: 1.5em;
+    margin: 10px;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+
   &__hold {
     display: flex;
     justify-content: center;
@@ -20,6 +27,6 @@
   }
 
   &__hold-active {
-    background-color: blue;
+    background-color: orange;
   }
 }

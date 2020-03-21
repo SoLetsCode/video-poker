@@ -1,0 +1,16 @@
+.controls {
+  margin: 1em;
+
+  &__wrapper {
+    display: flex;
+    justify-content: space-evenly;
+  }
+
+  &__container {
+    font-weight: bold;
+    padding: 1em;
+    background-color: #ffa500;
+    border-radius: 15px;
+    font-size: 1.5em;
+  }
+}

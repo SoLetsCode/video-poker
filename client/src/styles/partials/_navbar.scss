@@ -1,0 +1,18 @@
+.navbar {
+  background-color: black;
+  display: flex;
+  justify-content: space-evenly;
+
+  &__link {
+    flex: 1;
+    text-decoration: none;
+    color: white;
+    padding: 5px 0;
+    text-align: center;
+
+    &:hover {
+      background-color: whitesmoke;
+      color: black;
+    }
+  }
+}

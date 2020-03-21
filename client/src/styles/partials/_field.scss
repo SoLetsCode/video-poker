@@ -1,7 +1,19 @@
 .field {
   display: flex;
   justify-content: center;
+  position: relative;
+  margin: 0 0 15px 0;
 
+  &__message {
+    position: absolute;
+    font-size: 1.5em;
+    font-weight: bold;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    text-align: center;
+    bottom: 50%;
+  }
   &__card-container {
     display: flex;
     justify-content: center;
