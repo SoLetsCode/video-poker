@@ -1,0 +1,69 @@
+import React from "react";
+import { Chart } from "react-google-charts";
+
+import { v4 as uuidv4 } from "uuid";
+
+export default function Log({ playerLog }) {
+  const data = playerLog.map((data, index) => [index, data.outcome]);
+  data.unshift(["Times Played", "Outcome"]);
+
+  const correctMove = (player, trainer) => {
+    return player === trainer;
+  };
+  const log = playerLog.map(data => {
+    let className = correctMove(data.playerhold, data.trainerhold)
+      ? "log__container log__container-correct"
+      : "log__container log__container-wrong";
+
+    return (
+      <div className={className} key={uuidv4()}>
+        <div className={"log__wrapper log__wrapper-hand"}>
+          <div className="log__description">
+            {JSON.parse(data.hand).join(" ")}
+          </div>
+        </div>
+        <div className="log__wrapper log__wrapper-playerhold">
+          <div className="log__description">
+            {JSON.parse(data.playerhold).join(" ")}
+          </div>
+        </div>
+        <div className="log__wrapper log__wrapper-trainerhold">
+          <div className="log__description">
+            {JSON.parse(data.trainerhold).join(" ")}
+          </div>
+        </div>
+        <div className="log__wrapper log__wrapper-outcome">
+          <div className="log__description">{data.outcome}</div>
+        </div>
+      </div>
+    );
+  });
+
+  return (
+    <section className="log">
+      <Chart
+        chartType="ScatterChart"
+        data={data}
+        width="100%"
+        height="400px"
+        loader={<div>Loading Chart</div>}
+        legendToggle
+      />
+      <div className="log__container" key={uuidv4()}>
+        <div className="log__wrapper log__wrapper-hand">
+          <label className="log__title">Hand</label>
+        </div>
+        <div className="log__wrapper log__wrapper-playerhold">
+          <label className="log__title">Player Hold</label>
+        </div>
+        <div className="log__wrapper log__wrapper-trainerhold">
+          <label className="log__title">Trainer Hold</label>
+        </div>
+        <div className="log__wrapper log__wrapper-outcome">
+          <label className="log__title">Result</label>
+        </div>
+      </div>
+      {log}
+    </section>
+  );
+}

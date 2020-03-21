@@ -1,0 +1,12 @@
+.credit {
+  &__container {
+    background-color: orange;
+    color: darkgreen;
+    font-size: 2em;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    margin: 50px 30px 50px 30px;
+    border-radius: 100px;
+  }
+}

@@ -1,10 +1,13 @@
 /* reset the page */
 
+@import url("https://fonts.googleapis.com/css?family=Russo+One&display=swap");
+
 html,
 body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "Russo One", sans-serif;
 }
 
 *,
@@ -14,13 +17,34 @@ body {
 }
 
 .app {
+  background-image: radial-gradient(darkgreen, green, darkgreen);
+  background-size: cover;
+  background-repeat: repeat;
+  min-height: 100vh;
+
   &:focus {
     outline: transparent;
+  }
+
+  &__button {
+    border-radius: 10px;
+    background-color: black;
+    color: white;
+    padding: 5px;
+    display: block;
+    margin: 5px auto;
+    font-size: 1em;
+    font-family: "Russo One", sans-serif;
   }
 }
 
 @import "./partials/colors";
-
+@import "./partials/paytable";
+@import "./partials/navbar";
+@import "./partials/log";
 @import "./partials/field";
 @import "./partials/card";
 @import "./partials/trainer";
+@import "./partials/_credit";
+@import "./partials/strategy";
+@import "./partials/controls";

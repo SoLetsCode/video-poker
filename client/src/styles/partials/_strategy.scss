@@ -1,0 +1,15 @@
+.strategy {
+  margin: 1em;
+
+  &__list-item {
+    font-size: 1.5em;
+
+    &:hover {
+      color: white;
+    }
+  }
+
+  &__source {
+    font-size: 1.5em;
+  }
+}
