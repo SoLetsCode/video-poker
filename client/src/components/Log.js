@@ -4,8 +4,8 @@ import { Chart } from "react-google-charts";
 import { v4 as uuidv4 } from "uuid";
 
 export default function Log({ playerLog }) {
-  const data = playerLog.map((data, index) => [index, data.outcome]);
-  data.unshift(["Times Played", "Outcome"]);
+  const data = playerLog.map((data, index) => [index, data.credit]);
+  data.unshift(["Times Played", "Credit"]);
 
   const correctMove = (player, trainer) => {
     return player === trainer;
@@ -41,14 +41,18 @@ export default function Log({ playerLog }) {
 
   return (
     <section className="log">
-      <Chart
-        chartType="ScatterChart"
-        data={data}
-        width="100%"
-        height="400px"
-        loader={<div>Loading Chart</div>}
-        legendToggle
-      />
+      {playerLog.length === 0 ? (
+        <p style={{ textAlign: "center" }}>No history</p>
+      ) : (
+        <Chart
+          chartType="ScatterChart"
+          data={data}
+          width="100%"
+          height="400px"
+          loader={<div>Loading Chart</div>}
+          legendToggle
+        />
+      )}
       <div className="log__container" key={uuidv4()}>
         <div className="log__wrapper log__wrapper-hand">
           <label className="log__title">Hand</label>

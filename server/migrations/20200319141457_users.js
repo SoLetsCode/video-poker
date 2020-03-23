@@ -5,6 +5,7 @@ exports.up = function(knex) {
       .string("name")
       .notNullable()
       .defaultTo("robot");
+    table.string("hash").notNullable();
   });
 };
 

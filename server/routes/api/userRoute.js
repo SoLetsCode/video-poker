@@ -6,7 +6,6 @@ const Logs = require("../../models/logs");
 const Users = require("../../models/users");
 
 router.get("/all", (req, res) => {
-  console.log("running");
   Users.where(req.body)
     .fetchAll()
     .then(users => {
@@ -14,12 +13,32 @@ router.get("/all", (req, res) => {
     });
 });
 
-router.get("/id", (req, res) => {
-  Users.where("id", req.body.id)
+router.get("/:hash", (req, res) => {
+  Users.where("hash", req.params.hash)
     .fetch()
     .then(user => res.status(200).json({ user }))
     .catch(user => {
-      res.status(404).json({ error: `could not find user ${user}` });
+      res
+        .status(404)
+        .json({ error: `email and password do not match a listed user` });
+    });
+});
+
+router.post("/", (req, res) => {
+  Users.where("hash", req.body.hash)
+    .fetch()
+    .then(user => res.status(200).json({ user }))
+    .catch(() => {
+      //only add if the user doesn't exist, otherwise just return the found user
+      new Users({
+        name: req.body.name,
+        hash: req.body.hash
+      })
+        .save()
+        .then(user => {
+          res.status(201).json({ user });
+        })
+        .catch(error => res.status(404).json({ error }));
     });
 });
 
