@@ -1,14 +1,14 @@
 .navbar {
   background-color: black;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: flex-start;
 
   &__link {
-    flex: 1;
     text-decoration: none;
     color: white;
     padding: 5px 0;
     text-align: center;
+    flex: 1;
 
     &:hover {
       background-color: whitesmoke;

@@ -15,6 +15,7 @@ import { cardFonts } from "./helper/cardFont";
 
 //import components here
 import Navbar from "./components/Navbar";
+import Header from "./components/Header";
 import Paytable from "./components/Paytable";
 import Field from "./components/Field";
 import Credit from "./components/Credit";
@@ -22,6 +23,8 @@ import Trainer from "./components/Trainer";
 import Log from "./components/Log";
 import Strategy from "./components/Strategy";
 import Controls from "./components/Controls";
+import Login from "./components/Login";
+import CreateAccount from "./components/CreateAccount";
 
 //testing function to restrict cards call cardList() in new Deck()
 const cardList = () => {
@@ -86,7 +89,8 @@ class App extends Component {
       tip: "", //tip from helper
       hold: [false, false, false, false, false],
       trainer: true,
-      user_id: 13,
+      user_id: 2,
+      name: "guest",
       playerLog: []
     };
   }
@@ -95,7 +99,7 @@ class App extends Component {
     this.keyBoardControl.current.focus();
 
     //grab log information for user
-    axios.get("/api/log", { user_id: this.state.user_id }).then(res =>
+    axios.get(`/api/log/${this.state.user_id}`).then(res =>
       this.setState({
         playerLog: res.data.logs
       })
@@ -103,7 +107,18 @@ class App extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    //do I need to use this?
+    console.log("I'm running");
+    if (this.state.playerLog.length !== 0) {
+      //don't want to check in case a new user is created
+      if (
+        prevState.credit !==
+        this.state.playerLog[this.state.playerLog.length - 1].credit
+      ) {
+        this.setCredit(
+          this.state.playerLog[this.state.playerLog.length - 1].credit
+        );
+      }
+    }
   }
 
   calculateHand = handState => {
@@ -201,7 +216,8 @@ class App extends Component {
         trainerhold: trainerHold,
         user_id: user_id,
         outcome: outcome,
-        trainerused: trainer
+        trainerused: trainer,
+        credit: this.state.credit + outcome + 5
       })
       .then(res => {
         console.log(`log successful ${res.data}`);
@@ -211,7 +227,7 @@ class App extends Component {
   };
 
   grabLog = () => {
-    axios.get("/api/log", { user_id: this.state.user_id }).then(res =>
+    axios.get(`/api/log/${this.state.user_id}`).then(res =>
       this.setState({
         playerLog: res.data.logs
       })
@@ -240,6 +256,15 @@ class App extends Component {
     });
   };
 
+  setUser = (name, id) => {
+    this.setState({
+      user_id: id,
+      name: name
+    });
+
+    this.grabLog();
+  };
+
   keyboardPress = event => {
     //used to control the game
     //spacebar 32, 49-50-51-52-53 (1-5) 13, enter 84 t
@@ -265,40 +290,43 @@ class App extends Component {
 
   render() {
     return (
-      <div
-        className="app"
-        ref={this.keyBoardControl}
-        tabIndex="0"
-        onKeyDown={this.keyboardPress}
-      >
+      <div className="app">
         <Router>
-          <Navbar />
+          <Navbar name={this.state.name} setUser={this.setUser} />
           <Switch>
             <Route exact path="/">
-              <Paytable
-                wager={this.state.wager}
-                paytable={this.state.paytable}
-              />
-              <button className="app__button" onClick={this.trainerClick}>
-                {this.state.trainer ? "Turn Trainer Off" : "Turn Trainer On"}
-              </button>
-              {this.state.trainer ? (
-                <Trainer hold={this.state.hold} tip={this.state.tip} />
-              ) : (
-                ""
-              )}
-              <Field
-                hand={this.state.hand}
-                round={this.state.round}
-                message={this.state.message}
-              />
-              <button className="app__button" onClick={this.round}>
-                {!this.state.round ? "New Game" : "Draw"}
-              </button>
-              <Credit
-                credit={this.state.credit - this.state.change}
-                change={this.state.change}
-              />
+              <div
+                ref={this.keyBoardControl}
+                tabIndex="0"
+                onKeyDown={this.keyboardPress}
+                className="app__keyboard-listener"
+              >
+                <Header name={this.state.name} />
+                <Paytable
+                  wager={this.state.wager}
+                  paytable={this.state.paytable}
+                />
+                <button className="app__button" onClick={this.trainerClick}>
+                  {this.state.trainer ? "Turn Trainer Off" : "Turn Trainer On"}
+                </button>
+                {this.state.trainer ? (
+                  <Trainer hold={this.state.hold} tip={this.state.tip} />
+                ) : (
+                  ""
+                )}
+                <Field
+                  hand={this.state.hand}
+                  round={this.state.round}
+                  message={this.state.message}
+                />
+                <button className="app__button" onClick={this.round}>
+                  {!this.state.round ? "New Game" : "Draw"}
+                </button>
+                <Credit
+                  credit={this.state.credit - this.state.change}
+                  change={this.state.change}
+                />
+              </div>
             </Route>
             <Route path="/log">
               <Log playerLog={this.state.playerLog} />
@@ -309,6 +337,20 @@ class App extends Component {
             <Route path="/controls">
               <Controls />
             </Route>
+            <Route
+              path="/login"
+              render={props => <Login setUser={this.setUser} {...props} />}
+            />
+            <Route
+              path="/createaccount"
+              render={props => (
+                <CreateAccount
+                  setUser={this.setUser}
+                  setCredit={this.setCredit}
+                  {...props}
+                />
+              )}
+            />
           </Switch>
         </Router>
       </div>

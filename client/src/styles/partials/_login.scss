@@ -1,0 +1,21 @@
+.login {
+  &__form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__field {
+    &:focus {
+      outline: transparent;
+    }
+  }
+
+  &__error {
+    color: red;
+  }
+
+  &__link {
+    text-decoration: none;
+  }
+}

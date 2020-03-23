@@ -5,8 +5,8 @@ const router = express.Router();
 const Logs = require("../../models/logs");
 const Users = require("../../models/users");
 
-router.get("/", (req, res) => {
-  Logs.where(req.body)
+router.get("/:id", (req, res) => {
+  Logs.where("user_id", req.params.id)
     .fetchAll()
     .then(logs => {
       res.status(200).json({ logs });
@@ -26,7 +26,8 @@ router.post("/", (req, res) => {
     playerhold: JSON.stringify(req.body.playerhold),
     trainerhold: JSON.stringify(req.body.trainerhold),
     user_id: req.body.user_id,
-    outcome: req.body.outcome
+    outcome: req.body.outcome,
+    credit: req.body.credit
   })
     .save()
     .then(newLog => {

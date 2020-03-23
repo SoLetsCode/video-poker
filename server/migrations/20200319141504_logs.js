@@ -7,8 +7,8 @@ exports.up = function(knex) {
     table.boolean("trainerused").defaultTo(false);
     table
       .integer("user_id")
-      .unsigned()
       .notNullable()
+      .unsigned()
       .references("id")
       .inTable("users")
       .onUpdate("CASCADE")
@@ -17,6 +17,7 @@ exports.up = function(knex) {
       .integer("outcome")
       .notNullable()
       .defaultTo(0);
+    table.integer("credit").notNullable();
   });
 };
 

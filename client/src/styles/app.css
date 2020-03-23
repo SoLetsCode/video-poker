@@ -21,9 +21,14 @@ body {
   background-size: cover;
   background-repeat: repeat;
   min-height: 100vh;
+  padding: 0 0 50px 0;
 }
 
 .app:focus {
+  outline: transparent;
+}
+
+.app__keyboard-listener:focus {
   outline: transparent;
 }
 
@@ -36,6 +41,23 @@ body {
   margin: 5px auto;
   font-size: 1em;
   font-family: "Russo One", sans-serif;
+}
+
+.app__button:focus {
+  outline: transparent;
+}
+
+.header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.header__title {
+  text-align: center;
 }
 
 .paytable {
@@ -78,19 +100,19 @@ body {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: space-evenly;
-      -ms-flex-pack: space-evenly;
-          justify-content: space-evenly;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
 }
 
 .navbar__link {
-  -webkit-box-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
   text-decoration: none;
   color: white;
   padding: 5px 0;
   text-align: center;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
 }
 
 .navbar__link:hover {
@@ -321,7 +343,7 @@ body {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  margin: 50px 30px 50px 30px;
+  margin: 25px 30px 0 30px;
   border-radius: 100px;
 }
 
@@ -360,5 +382,30 @@ body {
   background-color: #ffa500;
   border-radius: 15px;
   font-size: 1.5em;
+}
+
+.login__form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.login__field:focus {
+  outline: transparent;
+}
+
+.login__error {
+  color: red;
+}
+
+.login__link {
+  text-decoration: none;
 }
 /*# sourceMappingURL=app.css.map */
