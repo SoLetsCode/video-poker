@@ -24,6 +24,10 @@
     border-radius: 5px;
     position: relative;
     margin-left: 10px;
+
+    @include tablet {
+      height: 2vw;
+    }
   }
 
   &__hold-active {

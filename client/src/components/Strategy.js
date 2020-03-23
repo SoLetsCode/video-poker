@@ -5,7 +5,7 @@ export default function Strategy() {
     <div className="strategy">
       <h1 className="strategy__title">Basic Strategy Guide</h1>
       <h2 className="strategy__description">
-        Hands to hold in order of importance
+        Hands to hold in order of importance. Estimated 99.46% return.
       </h2>
       <ol className="strategy__list">
         <li className="strategy__list-item">
