@@ -344,7 +344,11 @@ class App extends Component {
             <Route
               path="/createaccount"
               render={props => (
-                <CreateAccount setUser={this.setUser} {...props} />
+                <CreateAccount
+                  setUser={this.setUser}
+                  setCredit={this.setCredit}
+                  {...props}
+                />
               )}
             />
           </Switch>

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import crypto from "crypto";
 import axios from "axios";
 
-export default function CreateAccount({ setUser, history }) {
+export default function CreateAccount({ setUser, setCredit, history }) {
   const [emailField, setEmailField] = useState(true);
   const [passwordField, setPasswordField] = useState(true);
   const [usernameField, setUsernameField] = useState(true);
@@ -32,6 +32,7 @@ export default function CreateAccount({ setUser, history }) {
         })
         .then(res => {
           setUser(res.data.user.name, res.data.user.id);
+          setCredit(500);
           history.replace({ pathname: "/" });
         })
         .catch(error => console.log(error));
