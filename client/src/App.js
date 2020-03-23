@@ -68,6 +68,8 @@ const cardList = () => {
   // temp.splice(13, 1);
   // temp.splice(0, 1);
 
+  temp.splice(0, 12);
+
   return temp;
 };
 

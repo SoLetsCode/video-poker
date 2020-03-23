@@ -45,7 +45,7 @@ export default function Log({ playerLog }) {
         <p style={{ textAlign: "center" }}>No history</p>
       ) : (
         <Chart
-          chartType="ScatterChart"
+          chartType="LineChart"
           data={data}
           width="100%"
           height="400px"

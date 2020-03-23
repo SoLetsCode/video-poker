@@ -2,8 +2,12 @@
   display: flex;
   flex-wrap: wrap;
   width: 100%;
-  justify-content: center;
+  justify-content: space-evenly;
   margin: 50px 0 50px 0;
+
+  @include tablet {
+    margin: 25px 0 25px 0;
+  }
 
   &__outer-container {
     width: 50%;
@@ -11,6 +15,10 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+
+    @include tablet {
+      width: auto;
+    }
   }
 
   &__hand-title {
