@@ -27,6 +27,8 @@ router.post("/", (req, res) => {
     trainerhold: JSON.stringify(req.body.trainerhold),
     user_id: req.body.user_id,
     outcome: req.body.outcome,
+    finalhand: JSON.stringify(req.body.finalhand),
+    result: req.body.result,
     credit: req.body.credit
   })
     .save()

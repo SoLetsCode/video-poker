@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import { cardImages } from "../helper/cardImages";
 
-function CardObject({ value, suits, index, hand, round }) {
-  const [held = false, setHeld] = useState(false);
-
+function CardObject({ value, suits, index, hand, round, hold, setPlayerHold }) {
   let suit = { d: "♦️", c: "♣️", h: "♥️", s: "♠️" };
 
   const cardMobile = () => {
@@ -19,7 +17,7 @@ function CardObject({ value, suits, index, hand, round }) {
     if (round !== false) {
       //if used to stop player from being to hold cards at the end of the game
       hand[event.currentTarget.title].toggleHeld();
-      setHeld(!held);
+      setPlayerHold(event.currentTarget.title);
     }
   };
 
@@ -38,7 +36,7 @@ function CardObject({ value, suits, index, hand, round }) {
         />
         {cardMobile()}
       </div>
-      <label className="card__label">{held ? "HOLD" : "\b"}</label>
+      <label className="card__label">{hold ? "HOLD" : "\b"}</label>
     </section>
   );
 }

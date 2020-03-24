@@ -90,6 +90,7 @@ class App extends Component {
       change: 0,
       tip: "", //tip from helper
       hold: [false, false, false, false, false],
+      playerHold: [false, false, false, false, false],
       trainer: true,
       user_id: 2,
       name: "guest",
@@ -98,7 +99,9 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.keyBoardControl.current.focus();
+    if (this.keyBoardControl.current !== null) {
+      this.keyBoardControl.current.focus();
+    }
 
     //grab log information for user
     axios.get(`/api/log/${this.state.user_id}`).then(res =>
@@ -109,7 +112,9 @@ class App extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    console.log("I'm running");
+    if (this.keyBoardControl.current !== null) {
+      this.keyBoardControl.current.focus();
+    }
     if (this.state.playerLog.length !== 0) {
       //don't want to check in case a new user is created
       if (
@@ -194,14 +199,17 @@ class App extends Component {
           : `${paytableTranslate[handState]} you win ${
               payTable[handState][this.state.wager - 1]
             }`;
-      let outcome = this.calculateHand(handState); //store the last remaining variable required for logHand()
+      let outcome = this.calculateHand(handState); //store the last remaining variables required for logHand()
+      let finalHand = this.state.hand.map(card => card.cardString());
       this.logHand(
         dealtHand,
         playerHold,
         trainerHold,
+        finalHand,
         this.state.user_id,
         outcome,
-        this.state.trainer
+        this.state.trainer,
+        handState
       );
       this.setState({
         message: handTranslated,
@@ -210,12 +218,23 @@ class App extends Component {
     });
   };
 
-  logHand = (dealtHand, playerHold, trainerHold, user_id, outcome, trainer) => {
+  logHand = (
+    dealtHand,
+    playerHold,
+    trainerHold,
+    finalHand,
+    user_id,
+    outcome,
+    trainer,
+    result
+  ) => {
     axios
       .post("/api/log", {
         hand: dealtHand,
         playerhold: playerHold,
         trainerhold: trainerHold,
+        finalhand: finalHand,
+        result: result,
         user_id: user_id,
         outcome: outcome,
         trainerused: trainer,
@@ -243,7 +262,8 @@ class App extends Component {
       console.log("starting new game time to hold cards");
       this.setState({
         message: "",
-        round: roundState
+        round: roundState,
+        playerHold: [false, false, false, false, false]
       });
       this.newGame();
     } else if (this.state.round === true) {
@@ -267,6 +287,15 @@ class App extends Component {
     this.grabLog();
   };
 
+  setPlayerHold = index => {
+    const tempHold = this.state.playerHold;
+    tempHold[index] = !tempHold[index];
+
+    this.setState({
+      playerHold: tempHold
+    });
+  };
+
   keyboardPress = event => {
     //used to control the game
     //spacebar 32, 49-50-51-52-53 (1-5) 13, enter 84 t
@@ -274,9 +303,8 @@ class App extends Component {
       this.round();
     } else if (event.keyCode >= 49 && event.keyCode <= 53) {
       if (this.state.round !== false) {
-        //very dirty solution, looking for an alternative
-        let targetCard = document.querySelector(`#card${event.keyCode - 49}`);
-        targetCard.click();
+        this.state.hand[event.keyCode - 49].toggleHeld();
+        this.setPlayerHold(event.keyCode - 49);
       }
     } else if (event.keyCode === 84) {
       this.trainerClick();
@@ -320,6 +348,8 @@ class App extends Component {
                   hand={this.state.hand}
                   round={this.state.round}
                   message={this.state.message}
+                  playerHold={this.state.playerHold}
+                  setPlayerHold={this.setPlayerHold}
                 />
                 <button className="app__button" onClick={this.round}>
                   {!this.state.round ? "New Game" : "Draw"}

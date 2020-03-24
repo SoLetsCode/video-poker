@@ -1,6 +1,10 @@
 .controls {
   margin: 1em;
 
+  &__title {
+    text-align: center;
+  }
+
   &__wrapper {
     display: flex;
     justify-content: space-evenly;

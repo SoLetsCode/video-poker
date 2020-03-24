@@ -52,7 +52,7 @@ import sQ from "../assets/cards/QS.svg";
 import sK from "../assets/cards/KS.svg";
 
 const cardImages = {
-  dA: dA,
+  dA: dA, //only need one value.
   d2: d2,
   d3: d3,
   d4: d4,

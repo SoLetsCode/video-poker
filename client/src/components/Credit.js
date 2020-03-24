@@ -6,9 +6,11 @@ export default function Credit({ credit, change }) {
   let end = credit + change;
 
   return (
-    <div className="credit__container">
-      {"Credits:"}
-      <Countup start={start} end={end} useEasing={false} />
+    <div className="credit__wrapper">
+      <div className="credit__container">
+        {"Credits:"}
+        <Countup start={start} end={end} useEasing={false} />
+      </div>
     </div>
   );
 }

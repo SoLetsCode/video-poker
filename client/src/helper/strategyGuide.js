@@ -289,7 +289,7 @@ const twoSuitedHighCards = (hand = []) => {
 };
 
 const twoUnsuitedHighCards = (hand = []) => {
-  let faceCards = hand.filter(
+  let faceCards = sortHand(hand).filter(
     card =>
       card.value === "A" ||
       card.value === "J" ||
@@ -340,7 +340,6 @@ const jackHighPair = (hand = []) => {
 };
 
 const checkWin = (hand = []) => {
-  //sorted hand is to assist checking for straights later
   if (royalFlush(hand)) {
     return "rf";
   } else if (straightFlush(hand)) {
@@ -380,7 +379,11 @@ const calculateMove = hand => {
   } else if (numToRoyal(hand, 4)) {
     tip = "keep four to royal flush";
     holdArray = numToRoyal(hand, 4);
-  } else if (checkWinOutcome === "f" || checkWinOutcome === "fh") {
+  } else if (
+    checkWinOutcome === "f" ||
+    checkWinOutcome === "fh" ||
+    checkWinOutcome === "s"
+  ) {
     tip = "keep the winning hand";
     holdArray = [true, true, true, true, true];
   } else if (checkWinOutcome === "tk") {

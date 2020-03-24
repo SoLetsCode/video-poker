@@ -17,6 +17,8 @@ exports.up = function(knex) {
       .integer("outcome")
       .notNullable()
       .defaultTo(0);
+    table.string("finalhand").notNullable;
+    table.string("result").notNullable;
     table.integer("credit").notNullable();
   });
 };
