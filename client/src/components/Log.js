@@ -87,8 +87,6 @@ export default function Log({ playerLog }) {
                 easing: "out",
                 startup: true
               },
-              pointsVisible: true,
-              pointSize: 5,
               backgroundColor: "transparent",
               fontSize: 20,
               fontName: "Russo One",

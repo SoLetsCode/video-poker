@@ -1,8 +1,17 @@
 .login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
   &__form {
     display: flex;
     flex-direction: column;
     align-items: center;
+  }
+
+  &__description {
+    text-align: center;
+    margin: 3vw 30vw;
   }
 
   &__field {

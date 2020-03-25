@@ -16,7 +16,7 @@ let paytableTranslate = {
   fk: "Four of a Kind",
   fh: "Full House",
   f: "Flush",
-  s: "Stright",
+  s: "Straight",
   tk: "Three of A Kind",
   tp: "Two Pair",
   jp: "Jack High"

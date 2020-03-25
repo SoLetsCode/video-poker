@@ -158,6 +158,10 @@ body {
   color: white;
 }
 
+.log__container:hover {
+  background-color: black;
+}
+
 .log__wrapper {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -396,8 +400,11 @@ body {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  margin: 25px 30px 25px 30px;
   border-radius: 100px;
+}
+
+.credit__wrapper {
+  padding: 25px 30px 25px 30px;
 }
 
 .strategy {
@@ -441,6 +448,19 @@ body {
   font-size: 1.5em;
 }
 
+.login {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
 .login__form {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -452,6 +472,11 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+}
+
+.login__description {
+  text-align: center;
+  margin: 3vw 30vw;
 }
 
 .login__field:focus {

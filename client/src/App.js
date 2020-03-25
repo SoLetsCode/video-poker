@@ -91,7 +91,7 @@ class App extends Component {
       tip: "", //tip from helper
       hold: [false, false, false, false, false],
       playerHold: [false, false, false, false, false],
-      trainer: true,
+      trainer: false,
       user_id: 2,
       name: "guest",
       playerLog: []
@@ -119,7 +119,8 @@ class App extends Component {
       //don't want to check in case a new user is created
       if (
         prevState.credit !==
-        this.state.playerLog[this.state.playerLog.length - 1].credit
+          this.state.playerLog[this.state.playerLog.length - 1].credit &&
+        this.state.round === false
       ) {
         this.setCredit(
           this.state.playerLog[this.state.playerLog.length - 1].credit
