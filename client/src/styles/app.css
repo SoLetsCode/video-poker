@@ -175,10 +175,16 @@ body {
           align-items: center;
 }
 
+.log__wrapper-index {
+  -webkit-box-flex: 1%;
+      -ms-flex: 1%;
+          flex: 1%;
+}
+
 .log__wrapper-hand {
-  -webkit-box-flex: 33%;
-      -ms-flex: 33%;
-          flex: 33%;
+  -webkit-box-flex: 32%;
+      -ms-flex: 32%;
+          flex: 32%;
 }
 
 .log__wrapper-playerhold {

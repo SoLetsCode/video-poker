@@ -10,7 +10,7 @@ const logsData = [
     trainerhold: JSON.stringify(["qh", "qc", "--", "--", "--"]),
     trainerused: false,
     finalhand: JSON.stringify(["qh", "qc", "5h", "ad", "kh"]),
-    result: "jh",
+    result: "jp",
     outcome: 5,
     credit: 500
   }

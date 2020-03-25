@@ -11,13 +11,16 @@ export default function Log({ playerLog }) {
     return player === trainer;
   };
 
-  const log = playerLog.map(data => {
+  const log = playerLog.reverse().map((data, index) => {
     let className = correctMove(data.playerhold, data.trainerhold)
       ? "log__container log__container-correct"
       : "log__container log__container-wrong";
 
     return (
       <div className={className} key={uuidv4()}>
+        <div className={"log__wrapper log__wrapper-index"}>
+          <div className="log__description">{playerLog.length - index}</div>
+        </div>
         <div className={"log__wrapper log__wrapper-hand"}>
           <div className="log__description">
             {JSON.parse(data.hand).join(" ")}
@@ -50,7 +53,7 @@ export default function Log({ playerLog }) {
       s: "Straight",
       tk: "Three of a Kind",
       tp: "Two Pair",
-      jh: "High Pair",
+      jp: "High Pair",
       LOSER: "Loser"
     };
     let dataArray = [["Hand", "Times"]];
