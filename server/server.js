@@ -44,7 +44,7 @@ app.listen(PORT, () => {
 });
 
 connection.connect(err => {
-  console.log("connected as id " + connection.threadID);
+  console.log("connected as id " + connection.threadId);
 });
 
 //Export connection for our ORM to use

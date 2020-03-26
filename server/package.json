@@ -15,14 +15,9 @@
     "seed": "knex seed:run"
   },
   "keywords": [
-    "hackathon",
-    "group",
-    "web",
-    "development",
-    "data",
-    "science",
-    "UI",
-    "UX"
+    "capstone",
+    "poker",
+    "trainer"
   ],
   "author": "Derek",
   "license": "ISC",
