@@ -53,6 +53,7 @@
   &__label {
     color: whitesmoke;
     font-weight: bold;
+    margin-left: 10px;
 
     @include tablet {
       font-size: 1.5em;

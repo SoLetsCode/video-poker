@@ -1,5 +1,5 @@
 .strategy {
-  margin: 1em;
+  padding: 1em;
 
   &__list-item {
     font-size: 1.5em;
@@ -7,6 +7,10 @@
     &:hover {
       color: white;
     }
+  }
+
+  &__highlight {
+    color: white;
   }
 
   &__source {

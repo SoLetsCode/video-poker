@@ -351,6 +351,7 @@ class App extends Component {
                   message={this.state.message}
                   playerHold={this.state.playerHold}
                   setPlayerHold={this.setPlayerHold}
+                  round={this.round}
                 />
                 <button className="app__button" onClick={this.round}>
                   {!this.state.round ? "New Game" : "Draw"}

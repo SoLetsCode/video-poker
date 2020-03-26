@@ -4,9 +4,6 @@
 
   &__title {
     text-align: center;
-
-    @include tablet {
-      margin: 20px 0 0 0;
-    }
+    margin: 20px 0 0 0;
   }
 }

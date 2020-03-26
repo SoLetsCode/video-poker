@@ -3,10 +3,20 @@ import React from "react";
 export default function Strategy() {
   return (
     <div className="strategy">
-      <h1 className="strategy__title">Basic Strategy Guide</h1>
-      <h2 className="strategy__description">
-        Hands to hold in order of importance. Estimated 99.46% return.
-      </h2>
+      <h1 className="strategy__title">How to Play</h1>
+      <p className="strategy__about">
+        In Jacks or Better Video Poker you get one chance to hold and replace
+        cards. If you get a pair of jacks or better you win. Bets are based on 5
+        credit wagers which give you the highest chance to win on a 6/9 payout
+        table.
+      </p>
+      <p className="strategy__about">
+        This application comes with a trainer that tells you what move to make
+        based on the basic strategy guide below. If played correctly, there is
+        an approximate <span className="strategy__highlight">99.46%</span>{" "}
+        return with 19% variance.
+      </p>
+      <h1 className="strategy__title">Hands to hold in order of importance.</h1>
       <ol className="strategy__list">
         <li className="strategy__list-item">
           Four of a kind, straight flush, royal flush
