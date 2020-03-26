@@ -2,16 +2,15 @@ const express = require("express");
 const router = express.Router();
 
 //models
-const Logs = require("../../models/logs");
 const Users = require("../../models/users");
 
-router.get("/all", (req, res) => {
-  Users.where(req.body)
-    .fetchAll()
-    .then(users => {
-      res.status(200).json({ users });
-    });
-});
+// router.get("/all", (req, res) => {
+//   Users.where(req.body)
+//     .fetchAll()
+//     .then(users => {
+//       res.status(200).json({ users });
+//     });
+// });
 
 router.get("/:hash", (req, res) => {
   Users.where("hash", req.params.hash)

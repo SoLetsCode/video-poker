@@ -19,7 +19,6 @@ const logRoute = require("./routes/api/logRoute.js");
 const userRoute = require("./routes/api/userRoute.js");
 
 //URLs to access each API
-app.use("/api/sample", sample);
 app.use("/api/log", logRoute);
 app.use("/api/user", userRoute);
 
