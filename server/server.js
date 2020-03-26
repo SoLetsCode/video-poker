@@ -14,7 +14,6 @@ app.use(express.json()); // this is so we can access req.body
 app.use(express.urlencoded({ extended: false }));
 
 //routes
-const sample = require("./routes/api/sample.js");
 const logRoute = require("./routes/api/logRoute.js");
 const userRoute = require("./routes/api/userRoute.js");
 
