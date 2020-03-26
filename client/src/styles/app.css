@@ -40,11 +40,17 @@ body {
   margin: 5px auto;
   font-size: 1em;
   font-family: "Russo One", sans-serif;
-  min-width: 131px;
+  width: 50vw;
 }
 
 .app__button:focus {
   outline: transparent;
+}
+
+@media only screen and (min-width: 767px) {
+  .app__button {
+    min-width: 131px;
+  }
 }
 
 .header {
@@ -209,7 +215,7 @@ body {
       -ms-flex-pack: center;
           justify-content: center;
   position: relative;
-  margin: 0 0 15px 0;
+  margin: 0 0 0 0;
 }
 
 .field__message {

@@ -1,6 +1,7 @@
 /* reset the page */
 
 @import url("https://fonts.googleapis.com/css?family=Russo+One&display=swap");
+@import "./partials/breakpoints";
 
 html,
 body {
@@ -41,15 +42,18 @@ body {
     margin: 5px auto;
     font-size: 1em;
     font-family: "Russo One", sans-serif;
-    min-width: 131px;
+    width: 50vw;
 
     &:focus {
       outline: transparent;
     }
+
+    @include tablet {
+      min-width: 131px;
+    }
   }
 }
 
-@import "./partials/breakpoints";
 @import "./partials/colors";
 @import "./partials/header";
 @import "./partials/paytable";
