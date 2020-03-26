@@ -2,7 +2,7 @@ Video Poker Application
 
 If deployed locally the database does not work. You can go into the package.json file in the client folder and change the proxy from https://still-spire-35642.herokuapp.com/ to http://localhost:5000/
 
-Check out the deployed version [Here][https://still-spire-35642.herokuapp.com/]
+Check out the deployed version https://still-spire-35642.herokuapp.com/
 
 In Video Poker you are dealt 5 random cards and you have one chance to hold certain cards. If your final hand has a pair of jacks or better, you will win.
 
