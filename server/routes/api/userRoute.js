@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 
 //models
-const Logs = require("../../models/logs");
 const Users = require("../../models/users");
 
 router.get("/all", (req, res) => {

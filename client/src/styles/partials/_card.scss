@@ -10,7 +10,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 15vw;
+    width: 16vw;
     height: 22vw;
     border-radius: 5px;
     position: relative;
@@ -23,7 +23,7 @@
   }
 
   &__image {
-    display: none;
+    display: inline-block;
     width: 100%;
     height: 100%;
 
@@ -32,7 +32,9 @@
     }
   }
 
+  // for mobile card styling if SVGs aren't clear
   &__mobile {
+    display: none;
     @include tablet {
       display: none;
     }
@@ -53,6 +55,7 @@
   &__label {
     color: whitesmoke;
     font-weight: bold;
+    margin-left: 10px;
 
     @include tablet {
       font-size: 1.5em;

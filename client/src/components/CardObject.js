@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { cardImages } from "../helper/cardImages";
 
 function CardObject({ value, suits, index, hand, round, hold, setPlayerHold }) {

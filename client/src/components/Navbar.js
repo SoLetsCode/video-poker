@@ -23,7 +23,8 @@ export default function Header({ name, setUser }) {
         Log
       </Link>
       <Link className="navbar__link" to="/strategy">
-        Strategy
+        Guide
+        {/* used to be called strategy. Renamed to guide could change names to be consistent at a later date */}
       </Link>
       <Link className="navbar__link" to="/controls">
         Controls

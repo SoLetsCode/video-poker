@@ -49,10 +49,12 @@ export default class Field extends Component {
     return (
       <>
         <div className="field">
-          {this.props.hand.length == 0
+          {this.props.hand.length === 0
             ? this.displayCardBack()
             : this.displayHand(this.props.hand)}
-          <div className="field__message">{this.props.message}</div>
+          <div className="field__message" onClick={this.props.round}>
+            {this.props.message}
+          </div>
         </div>
       </>
     );
