@@ -10,7 +10,7 @@
 
   &__tip {
     font-size: 1.5em;
-    margin: 10px;
+    margin: 0px 0 5px 0;
     color: white;
     background-color: rgba(0, 0, 0, 0.5);
   }
@@ -19,8 +19,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 15vw;
-    height: 5vw;
+    width: 16vw;
+    height: 3vw;
     border-radius: 5px;
     position: relative;
     margin-left: 10px;
