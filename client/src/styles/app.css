@@ -290,7 +290,6 @@ body {
 @media only screen and (min-width: 767px) {
   .card__container {
     background-color: darkgreen;
-    height: 20vw;
   }
 }
 
