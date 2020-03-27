@@ -11,7 +11,6 @@ import Deck from "./helper/Deck";
 import checkWin from "./helper/checkWin";
 import { payTable, paytableTranslate } from "./helper/paytable";
 import strategyGuide from "./helper/strategyGuide";
-import { cardFonts } from "./helper/cardFont";
 
 //import components here
 import Navbar from "./components/Navbar";
@@ -20,6 +19,7 @@ import Paytable from "./components/Paytable";
 import Field from "./components/Field";
 import Credit from "./components/Credit";
 import Trainer from "./components/Trainer";
+import Music from "./components/Music";
 import Log from "./components/Log";
 import Strategy from "./components/Strategy";
 import Controls from "./components/Controls";
@@ -94,7 +94,8 @@ class App extends Component {
       trainer: false,
       user_id: 2,
       name: "guest",
-      playerLog: []
+      playerLog: [],
+      music: false
     };
   }
 
@@ -279,6 +280,12 @@ class App extends Component {
     });
   };
 
+  setMusic = () => {
+    this.setState({
+      music: !this.state.music
+    });
+  };
+
   setUser = (name, id) => {
     this.setState({
       user_id: id,
@@ -309,6 +316,8 @@ class App extends Component {
       }
     } else if (event.keyCode === 84) {
       this.trainerClick();
+    } else if (event.keyCode === 77) {
+      this.setMusic();
     }
   };
 
@@ -351,7 +360,7 @@ class App extends Component {
                   message={this.state.message}
                   playerHold={this.state.playerHold}
                   setPlayerHold={this.setPlayerHold}
-                  round={this.round}
+                  setRound={this.round}
                 />
                 <button className="app__button" onClick={this.round}>
                   {!this.state.round ? "New Game" : "Draw"}
@@ -360,6 +369,10 @@ class App extends Component {
                   credit={this.state.credit - this.state.change}
                   change={this.state.change}
                 />
+                <button className="app__button" onClick={this.setMusic}>
+                  Music
+                </button>
+                {this.state.music && <Music />}
               </div>
             </Route>
             <Route path="/log">

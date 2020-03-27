@@ -32,7 +32,7 @@ export default class Field extends Component {
     let cardBackArray = [];
     for (let i = 0; i < 5; i++) {
       cardBackArray.push(
-        <div className="card__container">
+        <div className="card__container" key={uuidv4()}>
           <img
             src={cardBack} //swapped suit and value since variables cannot start with number
             alt={"Card Back"}
@@ -52,7 +52,7 @@ export default class Field extends Component {
           {this.props.hand.length === 0
             ? this.displayCardBack()
             : this.displayHand(this.props.hand)}
-          <div className="field__message" onClick={this.props.round}>
+          <div className="field__message" onClick={this.props.setRound}>
             {this.props.message}
           </div>
         </div>

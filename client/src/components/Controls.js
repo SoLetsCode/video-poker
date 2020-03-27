@@ -3,6 +3,7 @@ import React from "react";
 export default function Controls() {
   return (
     <div className="controls">
+      <h2 className="controls__title">Desktop Controls</h2>
       <h3 className="controls__title">
         Press the number keys or mouse click to hold cards
       </h3>
@@ -24,6 +25,10 @@ export default function Controls() {
       </h3>
       <div className="controls__wrapper">
         <label className="controls__container">Spacebar</label>
+      </div>
+      <h3 className="controls__title">Press M to show/hide music</h3>
+      <div className="controls__wrapper">
+        <label className="controls__container">M</label>
       </div>
     </div>
   );
